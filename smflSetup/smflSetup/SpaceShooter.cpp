@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>												// Inclusion de Libreria de iostream
 #include"SFML\Graphics.hpp"
 #include"SFML\Window.hpp"
 #include"SFML\System.hpp"
@@ -7,6 +7,8 @@
 #include<vector>
 
 using namespace sf;
+
+
 
 //VECTOR MATH
 //LENGTH OF VECTOR
@@ -65,7 +67,7 @@ public:
 	int HP;
 	int HPMax;
 
-	Enemy(Texture* texture, Vector2u windowSize)
+	Enemy(Texture* texture, Vector2u windowSize)	
 	{
 		this->HPMax = rand() % 3 + 1;
 		this->HP = this->HPMax;
