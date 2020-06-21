@@ -1,11 +1,10 @@
 #include<iostream>									// Inclusion de Libreria de iostream Gucci
-#include"SFML\Graphics.hpp"
-#include"SFML\Window.hpp"
-#include"SFML\System.hpp"
-#include<math.h>
-#include<cstdlib>
-#include<vector>
-
+#include"SFML\Graphics.hpp"							//\ 
+#include"SFML\Window.hpp"							///-->Inclusion de librerias de plataformas
+#include"SFML\System.hpp"							//
+#include<math.h>									// Inclusion de Libreria para operaciones matematicas
+#include<cstdlib>									// Inclusion de libreria para añadir
+#include<vector>									// Inclusion de librerias para utilizacion de vectores
 using namespace sf;
 
 
