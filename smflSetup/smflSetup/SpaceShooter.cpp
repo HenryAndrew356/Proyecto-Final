@@ -1,14 +1,12 @@
-#include<iostream>									// Inclusion de Libreria de iostream Gucci
-#include"SFML\Graphics.hpp"							//\ 
-#include"SFML\Window.hpp"							///-->Inclusion de librerias de plataformas
-#include"SFML\System.hpp"							//
-#include<math.h>									// Inclusion de Libreria para operaciones matematicas
-#include<cstdlib>									// Inclusion de libreria para añadir
-#include<vector>									// Inclusion de librerias para utilizacion de vectores
+#include<iostream>			
+#include"SFML\Graphics.hpp"	
+#include"SFML\Window.hpp"
+#include"SFML\System.hpp"
+#include<math.h>
+#include<cstdlib>
+#include<vector>
+
 using namespace sf;
-
-
-
 //VECTOR MATH
 //LENGTH OF VECTOR
 //|V| = sqrt(pow(2, Vx) + pow(2, Vy));
@@ -45,7 +43,7 @@ public:
 
 	Player(Texture* texture)
 	{
-		this->HPMax = 35;
+		this->HPMax = 5;
 		this->HP = this->HPMax;
 
 		this->texture = texture;
@@ -53,9 +51,7 @@ public:
 
 		this->shape.setScale(0.1f, 0.1f);
 	}
-
 	~Player() {}
-
 };
 
 class Enemy
@@ -66,7 +62,7 @@ public:
 	int HP;
 	int HPMax;
 
-	Enemy(Texture* texture, Vector2u windowSize)	
+	Enemy(Texture* texture, Vector2u windowSize)
 	{
 		this->HPMax = rand() % 3 + 1;
 		this->HP = this->HPMax;
@@ -80,7 +76,6 @@ public:
 
 	~Enemy() {}
 };
-
 int main()
 {
 	srand(time(NULL));
@@ -107,14 +102,14 @@ int main()
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(20);
 	scoreText.setFillColor(Color::White);
-	scoreText.setPosition(10.f, 10.f);
+	scoreText.setPosition(20.f, 20.f);
 
 	Text gameOverText;
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(30);
 	gameOverText.setFillColor(Color::Red);
 	gameOverText.setPosition(100.f, window.getSize().y / 2);
-	gameOverText.setString("GAME OVER!");
+	gameOverText.setString("JUEGO TERMINADO");
 
 	//Player init
 	int score = 0;
@@ -241,7 +236,7 @@ int main()
 			}
 
 			//UI Update
-			scoreText.setString("Score: " + std::to_string(score));
+			scoreText.setString("Puntaje: " + std::to_string(score));
 		}
 
 		//Draw ===================================================================== DRAW
