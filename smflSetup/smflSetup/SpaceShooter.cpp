@@ -7,11 +7,6 @@
 #include<vector>
 
 using namespace sf;
-//VECTOR MATH
-//LENGTH OF VECTOR
-//|V| = sqrt(pow(2, Vx) + pow(2, Vy));
-//NORMALIZE
-//U = V/|V| = (Vx, Vy) / sqrt(pow(2, Vx) + pow(2, Vy));
 
 class Bullet
 {
