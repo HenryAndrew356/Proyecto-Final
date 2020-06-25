@@ -109,11 +109,6 @@ int main(){
 			if (event.type == Event::Closed)
 				window.close();
 		}
-		
-
-		
-
-
 
 		if (player.HP > 0){
 			//Player manejo de movimientos
@@ -148,7 +143,7 @@ int main(){
 				shootTimer = 0; //reset timer
 			}
 
-			//Disparos Laser
+			//Disparos laser del player
 			for (size_t i = 0; i < player.bullets.size(); i++){
 				//Movimiento
 				player.bullets[i].shape.move(20.f, 0.f);
@@ -192,8 +187,7 @@ int main(){
 
 				if (enemies[i].shape.getGlobalBounds().intersects(player.shape.getGlobalBounds())){
 					enemies.erase(enemies.begin() + i);
-					player.HP--; // PLAYER TAKE DAMAGE
-					
+					player.HP--; // Disminucion de vida del player
 					break;
 				}
 			}
