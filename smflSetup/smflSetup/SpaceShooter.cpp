@@ -1,24 +1,4 @@
-#include<iostream>
-#include"SFML\Graphics.hpp"	
-#include"SFML\Window.hpp"
-#include"SFML\System.hpp"
-#include"SFML\Audio.hpp"
-#include<math.h>
-#include<cstdlib>
-#include<vector>
-
-using namespace sf;
-
-class Bullet{
-public:
-	Sprite shape;
-	Bullet(Texture* texture, Vector2f pos) {
-		this->shape.setTexture(*texture);
-		this->shape.setScale(0.07f, 0.07f);
-		this->shape.setPosition(pos);
-	}
-	~Bullet() {}
-};
+#include "Bullet.h"
 
 class Player{
 public:
@@ -55,13 +35,17 @@ public:
 
 int main(){
 	srand(time(NULL));
-	RenderWindow window(VideoMode(800, 600), "Space Shooter", Style::Default);
+	RenderWindow window(VideoMode(1200, 900), "Space Shooter", Style::Default);
 	window.setFramerateLimit(60);
 
-	Music music;
-	music.openFromFile("FondoGame.wav");
-	music.setVolume(50);
-	music.play();
+	Music fondo1;
+	fondo1.openFromFile("FondoGame.wav");
+	fondo1.setVolume(50);
+	fondo1.play();
+
+	Music colisionBulletEnemy;
+	colisionBulletEnemy.openFromFile("ImpactEnemy.wav");
+	colisionBulletEnemy.setVolume(60);
 
 
 	//Init text
@@ -136,33 +120,44 @@ int main(){
 
 			//Controles de Actualizaion
 			if (shootTimer < 15)
+			{
 				shootTimer++;
+			}
 
-			if (Mouse::isButtonPressed(Mouse::Left) && shootTimer >= 15){ //Shooting
+			//Disparos
+			if (Mouse::isButtonPressed(Mouse::Left) && shootTimer >= 15)
+			{
 				player.bullets.push_back(Bullet(&bulletTex, player.shape.getPosition()));
 				shootTimer = 0; //reset timer
 			}
 
-			//Disparos laser del player
-			for (size_t i = 0; i < player.bullets.size(); i++){
+			//Caracteristicas de disparos laser del player.
+			for (size_t i = 0; i < player.bullets.size(); i++)
+			{
 				//Movimiento
 				player.bullets[i].shape.move(20.f, 0.f);
 				//Limitacion de movimiento
-				if (player.bullets[i].shape.getPosition().x > window.getSize().x){
+				if (player.bullets[i].shape.getPosition().x > window.getSize().x)
+				{
 					player.bullets.erase(player.bullets.begin() + i);
 					break;
 				}
+
 				//Colision con enemigo
 				for (size_t k = 0; k < enemies.size(); k++){
-					if (player.bullets[i].shape.getGlobalBounds().intersects(enemies[k].shape.getGlobalBounds())){
-						if (enemies[k].HP <= 1){
+					if (player.bullets[i].shape.getGlobalBounds().intersects(enemies[k].shape.getGlobalBounds()))
+					{
+						if (enemies[k].HP <= 1)
+						{
 							score += enemies[k].HPMax;
 							enemies.erase(enemies.begin() + k);
 						}
 						else
+						{
 							enemies[k].HP--; //ENEMY TAKE DAMAGE
-						player.bullets.erase(player.bullets.begin() + i);
-						break;
+							player.bullets.erase(player.bullets.begin() + i);
+							break;
+						}
 					}
 				}
 			}
@@ -172,20 +167,24 @@ int main(){
 				enemySpawnTimer++;
 
 			//enemy spawn
-			if (enemySpawnTimer >= 25){
+			if (enemySpawnTimer >= 25)
+			{
 				enemies.push_back(Enemy(&enemyTex, window.getSize()));
-				enemySpawnTimer = 0; //reset timer
+				enemySpawnTimer = 0; //Reseteador.
 			}
 
-			for (size_t i = 0; i < enemies.size(); i++){
+			for (size_t i = 0; i < enemies.size(); i++)
+			{
 				enemies[i].shape.move(-6.f, 0.f);
 
-				if (enemies[i].shape.getPosition().x <= 0 - enemies[i].shape.getGlobalBounds().width){
+				if (enemies[i].shape.getPosition().x <= 0 - enemies[i].shape.getGlobalBounds().width)
+				{
 					enemies.erase(enemies.begin() + i);
 					break;
 				}
 
-				if (enemies[i].shape.getGlobalBounds().intersects(player.shape.getGlobalBounds())){
+				if (enemies[i].shape.getGlobalBounds().intersects(player.shape.getGlobalBounds()))
+				{
 					enemies.erase(enemies.begin() + i);
 					player.HP--; // Disminucion de vida del player
 					break;
